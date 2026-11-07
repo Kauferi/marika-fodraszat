@@ -1,0 +1,65 @@
+# Decap CMS beállítás – ezt a fodrász a weboldal.hu/admin címen éri el.
+
+backend:
+  name: github
+  repo: FELHASZNALONEV/marika-fodraszat   # <- az ügyfél GitHub-tárolója
+  branch: main
+  # Belépéshez egy OAuth segédprogram kell (pl. Cloudflare Workeren). Lásd: README.md
+  base_url: https://decap-oauth.PELDA.workers.dev
+  commit_messages:
+    update: 'Módosítás: {{collection}} – {{slug}}'
+
+# Helyi teszteléshez: futtasd `npx decap-server`-t, és vedd ki a # jelet:
+# local_backend: true
+
+locale: hu
+media_folder: public/images
+public_folder: /images
+
+collections:
+  - name: oldal
+    label: Weboldal tartalma
+    files:
+      - name: arlista
+        label: Árlista
+        file: src/data/arlista.json
+        fields:
+          - label: Bevezető szöveg
+            name: bevezeto
+            widget: text
+            required: false
+          - label: Kategóriák
+            name: kategoriak
+            widget: list
+            label_singular: kategória
+            summary: '{{fields.nev}}'
+            fields:
+              - { label: Kategória neve, name: nev, widget: string }
+              - label: Szolgáltatások
+                name: szolgaltatasok
+                widget: list
+                label_singular: szolgáltatás
+                summary: '{{fields.nev}} – {{fields.ar}}'
+                fields:
+                  - { label: Szolgáltatás neve, name: nev, widget: string }
+                  - { label: Ár, name: ar, widget: string, hint: 'Pl. 6 500 Ft vagy 9 000 Ft-tól' }
+                  - { label: Megjegyzés, name: megjegyzes, widget: string, required: false }
+
+      - name: beallitasok
+        label: Elérhetőség és nyitvatartás
+        file: src/data/beallitasok.json
+        fields:
+          - { label: Fodrászat neve, name: nev, widget: string }
+          - { label: Szlogen, name: szlogen, widget: string }
+          - { label: Bemutatkozás, name: bemutatkozas, widget: text }
+          - { label: Cím, name: cim, widget: string }
+          - { label: Telefon, name: telefon, widget: string }
+          - { label: E-mail, name: email, widget: string }
+          - label: Nyitvatartás
+            name: nyitvatartas
+            widget: list
+            allow_add: false
+            summary: '{{fields.nap}}: {{fields.ido}}'
+            fields:
+              - { label: Nap, name: nap, widget: string }
+              - { label: Időpont, name: ido, widget: string, hint: 'Pl. 9:00 – 17:00 vagy Zárva' }

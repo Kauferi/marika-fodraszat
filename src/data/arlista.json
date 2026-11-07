@@ -1,0 +1,32 @@
+{
+  "bevezeto": "Az árak tájékoztató jellegűek, a végleges ár a haj hosszától és állapotától függ. Kérdés esetén szívesen segítek!",
+  "kategoriak": [
+    {
+      "nev": "Női szolgáltatások",
+      "szolgaltatasok": [
+        { "nev": "Mosás, vágás, szárítás – rövid haj", "ar": "6 500 Ft", "megjegyzes": "" },
+        { "nev": "Mosás, vágás, szárítás – félhosszú haj", "ar": "7 500 Ft", "megjegyzes": "" },
+        { "nev": "Mosás, vágás, szárítás – hosszú haj", "ar": "8 500 Ft", "megjegyzes": "" },
+        { "nev": "Mosás, szárítás, beszárítás", "ar": "4 500 Ft-tól", "megjegyzes": "" },
+        { "nev": "Alkalmi frizura, kontyolás", "ar": "9 000 Ft-tól", "megjegyzes": "Előzetes egyeztetéssel" }
+      ]
+    },
+    {
+      "nev": "Festés és melír",
+      "szolgaltatasok": [
+        { "nev": "Tőfestés", "ar": "9 500 Ft-tól", "megjegyzes": "" },
+        { "nev": "Teljes festés", "ar": "12 000 Ft-tól", "megjegyzes": "" },
+        { "nev": "Melír fóliával", "ar": "14 000 Ft-tól", "megjegyzes": "" },
+        { "nev": "Balayage", "ar": "22 000 Ft-tól", "megjegyzes": "Konzultáció után" }
+      ]
+    },
+    {
+      "nev": "Férfi és gyerek",
+      "szolgaltatasok": [
+        { "nev": "Férfi hajvágás", "ar": "4 500 Ft", "megjegyzes": "" },
+        { "nev": "Gépi hajvágás", "ar": "3 000 Ft", "megjegyzes": "" },
+        { "nev": "Gyerek hajvágás (12 éves korig)", "ar": "3 500 Ft", "megjegyzes": "" }
+      ]
+    }
+  ]
+}

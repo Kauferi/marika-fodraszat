@@ -1,0 +1,51 @@
+---
+import '../styles/global.css';
+import beallitasok from '../data/beallitasok.json';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const { title, description = beallitasok.szlogen } = Astro.props;
+const fullTitle = title ? `${title} | ${beallitasok.nev}` : beallitasok.nev;
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const menu = [
+  { href: '/', label: 'Kezdőlap' },
+  { href: '/arlista', label: 'Árlista' },
+  { href: '/kapcsolat', label: 'Kapcsolat' },
+];
+---
+<!doctype html>
+<html lang="hu">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">Szobi <span>Marika</span> Fodrászat</a>
+        <nav class="nav" aria-label="Főmenü">
+          {menu.map((m) => (
+            <a href={m.href} aria-current={path === m.href ? 'page' : undefined}>{m.label}</a>
+          ))}
+        </nav>
+      </div>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>© {new Date().getFullYear()} {beallitasok.nev} · {beallitasok.cim}</span>
+        <span><a href={`tel:${beallitasok.telefon.replace(/\s/g, '')}`}>{beallitasok.telefon}</a></span>
+      </div>
+    </footer>
+  </body>
+</html>

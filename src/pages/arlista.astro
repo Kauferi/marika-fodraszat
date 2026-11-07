@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import arlista from '../data/arlista.json';
+---
+<Base title="Árlista" description="Szobi Marika Fodrászat szolgáltatásai és árai.">
+  <section class="section">
+    <div class="wrap" style="max-width: 780px;">
+      <div class="eyebrow">Árlista</div>
+      <h1>Szolgáltatások és árak</h1>
+      {arlista.bevezeto && <p class="lead" style="margin-bottom: 48px;">{arlista.bevezeto}</p>}
+
+      {arlista.kategoriak.map((k) => (
+        <div class="price-cat">
+          <h2>{k.nev}</h2>
+          {k.szolgaltatasok.map((s) => (
+            <div class="price-row">
+              <span class="name">
+                {s.nev}
+                {s.megjegyzes && <span class="note">{s.megjegyzes}</span>}
+              </span>
+              <span class="dots" aria-hidden="true"></span>
+              <span class="price">{s.ar}</span>
+            </div>
+          ))}
+        </div>
+      ))}
+
+      <p style="text-align: center; margin-top: 24px;">
+        <a class="btn" href="/kapcsolat">Időpontot kérek</a>
+      </p>
+    </div>
+  </section>
+</Base>

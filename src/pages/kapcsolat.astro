@@ -1,0 +1,90 @@
+---
+import Base from '../layouts/Base.astro';
+import Nyitvatartas from '../components/Nyitvatartas.astro';
+import beallitasok from '../data/beallitasok.json';
+import { WEB3FORMS_ACCESS_KEY } from '../config';
+
+const koszonoUrl = new URL('/koszonom', Astro.site).toString();
+---
+<Base title="Kapcsolat" description="Írj üzenetet vagy kérj időpontot a Szobi Marika Fodrászatba.">
+  <section class="section">
+    <div class="wrap">
+      <div class="eyebrow">Kapcsolat</div>
+      <h1>Írj nekem!</h1>
+      <p class="lead" style="margin-bottom: 48px;">Időpontot szeretnél, vagy kérdésed van? Küldj üzenetet, és hamarosan válaszolok.</p>
+
+      <div class="contact-grid">
+        <div>
+          <ul class="info-list">
+            <li><strong>Cím</strong>{beallitasok.cim}</li>
+            <li><strong>Telefon</strong><a href={`tel:${beallitasok.telefon.replace(/\s/g, '')}`}>{beallitasok.telefon}</a></li>
+            <li><strong>E-mail</strong><a href={`mailto:${beallitasok.email}`}>{beallitasok.email}</a></li>
+          </ul>
+          <h3>Nyitvatartás</h3>
+          <Nyitvatartas />
+        </div>
+
+        <form class="form" id="kapcsolat-urlap" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
+          <input type="hidden" name="subject" value="Új üzenet a weboldalról" />
+          <input type="hidden" name="from_name" value={beallitasok.nev} />
+          <input type="hidden" name="redirect" value={koszonoUrl} />
+          <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" />
+
+          <label>Név
+            <input type="text" name="name" required autocomplete="name" />
+          </label>
+          <label>E-mail-cím
+            <input type="email" name="email" required autocomplete="email" />
+          </label>
+          <label>Telefonszám <span style="font-weight: 400; color: var(--muted);">(nem kötelező)</span>
+            <input type="tel" name="telefon" autocomplete="tel" />
+          </label>
+          <label>Üzenet
+            <textarea name="message" required placeholder="Pl. jövő hét csütörtökre szeretnék egy vágást…"></textarea>
+          </label>
+          <label style="display: flex; gap: 10px; align-items: flex-start; font-weight: 400; font-size: .9rem;">
+            <input type="checkbox" name="adatkezeles" required style="margin-top: 4px;" />
+            <span>Hozzájárulok, hogy a megadott adataimat a kapcsolatfelvétel céljából kezeljék.</span>
+          </label>
+          <div>
+            <button class="btn" type="submit">Üzenet küldése</button>
+          </div>
+          <div class="form-status" id="urlap-allapot" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById('kapcsolat-urlap') as HTMLFormElement;
+  const allapot = document.getElementById('urlap-allapot') as HTMLDivElement;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const gomb = form.querySelector('button') as HTMLButtonElement;
+    gomb.disabled = true;
+    gomb.textContent = 'Küldés…';
+    allapot.className = 'form-status';
+
+    try {
+      const valasz = await fetch(form.action, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(form),
+      });
+      const eredmeny = await valasz.json();
+      if (!valasz.ok || !eredmeny.success) throw new Error(eredmeny.message);
+      form.reset();
+      allapot.textContent = 'Köszönöm az üzenetet! Hamarosan jelentkezem.';
+      allapot.className = 'form-status ok';
+    } catch {
+      allapot.textContent = 'Az üzenetet most nem sikerült elküldeni. Kérlek, hívj fel telefonon.';
+      allapot.className = 'form-status err';
+    } finally {
+      gomb.disabled = false;
+      gomb.textContent = 'Üzenet küldése';
+    }
+  });
+</script>

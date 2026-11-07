@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import Nyitvatartas from '../components/Nyitvatartas.astro';
+import beallitasok from '../data/beallitasok.json';
+import arlista from '../data/arlista.json';
+---
+<Base>
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">Fodrászat · Szob</div>
+        <h1>{beallitasok.szlogen}</h1>
+        <p class="lead">{beallitasok.bemutatkozas}</p>
+        <div class="hero-actions">
+          <a class="btn" href="/kapcsolat">Időpontot kérek</a>
+          <a class="btn btn-ghost" href="/arlista">Árlista</a>
+        </div>
+      </div>
+      <aside class="hero-card">
+        <h3>Nyitvatartás</h3>
+        <Nyitvatartas />
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" style="background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+    <div class="wrap">
+      <div class="eyebrow">Szolgáltatások</div>
+      <h2>Amiben segíthetek</h2>
+      <div class="grid-3" style="margin-top: 28px;">
+        {arlista.kategoriak.map((k) => (
+          <a class="card" href="/arlista" style="text-decoration: none; color: inherit;">
+            <h3>{k.nev}</h3>
+            <p>{k.szolgaltatasok.slice(0, 3).map((s) => s.nev).join(' · ')}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap" style="text-align: center;">
+      <h2>Foglalj időpontot!</h2>
+      <p class="lead" style="margin: 0 auto 24px;">Hívj fel, vagy írj üzenetet, és hamarosan visszajelzek.</p>
+      <div class="hero-actions" style="justify-content: center;">
+        <a class="btn" href={`tel:${beallitasok.telefon.replace(/\s/g, '')}`}>{beallitasok.telefon}</a>
+        <a class="btn btn-ghost" href="/kapcsolat">Üzenet küldése</a>
+      </div>
+    </div>
+  </section>
+</Base>

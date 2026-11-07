@@ -1,0 +1,17 @@
+{
+  "nev": "Szobi Marika Fodrászat",
+  "szlogen": "Gondos kezek, szép haj – Szob szívében.",
+  "bemutatkozas": "Több mint húsz éve fodrászkodom Szobon. Nálam nincs rohanás: minden vendégre annyi időt szánok, amennyi kell, hogy elégedetten nézzen a tükörbe. Vágás, festés, alkalmi frizura – gyere el, beszéljük meg, mi illik hozzád!",
+  "cim": "2628 Szob, Fő utca 1.",
+  "telefon": "+36 30 123 4567",
+  "email": "marika@example.com",
+  "nyitvatartas": [
+    { "nap": "Hétfő", "ido": "Zárva" },
+    { "nap": "Kedd", "ido": "9:00 – 17:00" },
+    { "nap": "Szerda", "ido": "9:00 – 17:00" },
+    { "nap": "Csütörtök", "ido": "11:00 – 19:00" },
+    { "nap": "Péntek", "ido": "9:00 – 17:00" },
+    { "nap": "Szombat", "ido": "8:00 – 12:00" },
+    { "nap": "Vasárnap", "ido": "Zárva" }
+  ]
+}

@@ -1,0 +1,11 @@
+---
+import beallitasok from '../data/beallitasok.json';
+---
+<ul class="hours">
+  {beallitasok.nyitvatartas.map((n) => (
+    <li>
+      <span>{n.nap}</span>
+      <span class={n.ido.toLowerCase().includes('zárva') ? 'closed' : undefined}>{n.ido}</span>
+    </li>
+  ))}
+</ul>
