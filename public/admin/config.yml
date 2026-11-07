@@ -2,7 +2,7 @@
 
 backend:
   name: github
-  repo: FELHASZNALONEV/marika-fodraszat   # <- az ügyfél GitHub-tárolója
+  repo: Kauferi/marika-fodraszat   # <- az ügyfél GitHub-tárolója
   branch: main
   # Belépéshez egy OAuth segédprogram kell (pl. Cloudflare Workeren). Lásd: README.md
   base_url: https://decap-oauth.PELDA.workers.dev
